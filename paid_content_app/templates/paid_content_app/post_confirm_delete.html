@@ -1,0 +1,27 @@
+{% extends 'paid_content_app/base.html' %}
+{% block menu %}
+{% include 'main/includes/inc_left_menu.html' %}
+{% endblock %}
+{% block content %}
+<div class="row mt-5 ms-0 me-0 align-items-center">
+    <div class="col-6">
+        <h1>
+            Удалить публикацию {{ object }}?
+        </h1>
+    </div>
+</div>
+<div class="row mt-5 ms-0 me-0">
+    <div class="card mb-3 col-6">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <p>
+                    Вы точно хотите удалить публикацию {{ object }}?
+                </p>
+                <button type="submit" class="btn btn-danger me-2">Удалить</button>
+                <a href="{% url 'main:posts' %}" class="btn btn-secondary">Отмена</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
