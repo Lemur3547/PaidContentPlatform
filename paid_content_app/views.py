@@ -26,6 +26,12 @@ class PostCreateView(CreateView):
     form_class = PostForm
     success_url = reverse_lazy('main:posts')
 
+    def form_valid(self, form):
+        post = form.save()
+        post.user = self.request.user
+        post.save()
+        return super().form_valid(form)
+
 
 class PostDetailView(DetailView):
     """Контроллер для просмотра записи"""
