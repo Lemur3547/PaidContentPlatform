@@ -23,10 +23,17 @@
             <li><a href="#" class="nav-link px-2">About</a></li>
         </ul>
 
+        {% if user.is_authenticated %}
         <div class="col-md-3 text-end">
-            <button type="button" class="btn btn-outline-primary me-2">Login</button>
-            <button type="button" class="btn btn-primary">Sign-up</button>
+            {{ user }}
+            <a href="{% url 'users:logout' %}" type="button" class="btn btn-outline-primary ms-3">Выйти</a>
         </div>
+        {% else %}
+        <div class="col-md-3 text-end">
+            <a href="{% url 'users:login' %}" type="button" class="btn btn-outline-primary me-2">Войти</a>
+            <a href="{% url 'users:register' %}" type="button" class="btn btn-primary">Зарегистрироваться</a>
+        </div>
+        {% endif %}
     </header>
     {% block content %}
     {% endblock %}
