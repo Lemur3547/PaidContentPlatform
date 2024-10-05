@@ -18,8 +18,12 @@
                     </svg>
                 </a>
                 <ul class="dropdown-menu">
+                    {% if post.user == request.user %}
                     <li><a class="dropdown-item" href="{% url 'main:edit_post' post.pk %}">Изменить</a></li>
                     <li><a class="dropdown-item" href="{% url 'main:delete_post' post.pk %}">Удалить</a></li>
+                    {% else %}
+                    <li><a class="dropdown-item">Пожаловаться</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

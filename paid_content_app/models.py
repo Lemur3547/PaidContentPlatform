@@ -22,3 +22,15 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'Запись'
         verbose_name_plural = 'Записи'
+
+
+class PurchasedPost(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Публикация')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+
+    def __str__(self):
+        return f"{self.post} {self.user}"
+
+    class Meta:
+        verbose_name = 'Приобретенная публикация'
+        verbose_name_plural = 'Приобретенные публикации'
