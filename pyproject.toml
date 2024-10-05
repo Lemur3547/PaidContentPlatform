@@ -13,6 +13,7 @@ python-dotenv = "^1.0.1"
 pillow = "^10.4.0"
 ipython = "^8.27.0"
 django-stubs = "^5.1.0"
+stripe = "^11.1.0"
 
 
 [build-system]

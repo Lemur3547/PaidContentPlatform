@@ -27,7 +27,11 @@
                 </ul>
             </div>
         </div>
+        {% if post.price == 0 or post.user == user or post|is_purchased:user %}
         <a href="{% url 'main:detail_post' post.pk %}" class="text-decoration-none text-reset m-0 p-0">
+            {% else %}
+            <a href="{% url 'main:pay_post' post.pk %}" class="text-decoration-none text-reset m-0 p-0">
+                {% endif %}
             {% if post.image %}
             <img src="{{ post.image|media_filter }}" class="w-100">
             {% endif %}
@@ -39,8 +43,6 @@
             </div>
         </a>
     </div>
-
-
 </div>
 {% endfor %}
 {% endblock %}
