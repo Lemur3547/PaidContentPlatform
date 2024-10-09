@@ -5,6 +5,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, DetailView
 
+from paid_content_app.models import Post
 from users.forms import UserRegisterForm
 from users.models import User
 
@@ -34,9 +35,12 @@ def home(request):
 class UserPage(DetailView):
     model = User
     template_name = 'users/user_page.html'
+    ordering = '-created_at'
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
+        view_user = User.objects.get(username=self.kwargs['pk'])
         context_data['user'] = self.request.user
-        context_data['view_user'] = User.objects.get(username=self.kwargs['pk'])
+        context_data['view_user'] = view_user
+        context_data['user_posts'] = Post.objects.filter(user=view_user).order_by('-created_at')
         return context_data

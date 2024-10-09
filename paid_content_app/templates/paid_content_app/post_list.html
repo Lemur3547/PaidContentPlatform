@@ -5,7 +5,7 @@
     <a href="{% url 'main:create_post' %}" class="btn btn-primary col-3">Добавить запись</a>
 </div>
 {% for post in object_list %}
-<div class="row justify-content-center mb-3">
+<div class="row justify-content-center mb-3 p-0 m-0">
     <div class="card col-6 p-0">
         <div class="card-img-top d-flex">
             <p class="me-auto">{{ post.created_at|date:'d M Y в H:i' }}</p>
@@ -39,9 +39,13 @@
                 <h5 class="card-title">{{ post.name }}</h5>
                 <p>Открыть за {{ post.price }}{{ post.get_currency_display }}</p>
                 <p class="card-text">{{ post.text }}</p>
-                <p class="card-text">{{ post.user }}</p>
             </div>
-        </a>
+            </a>
+            <a href="{% url 'users:user_page' post.user.username %}" class="text-decoration-none text-reset m-0 p-0">
+                <p class="card-text">{{ post.user }}</p>
+            </a>
+
+
     </div>
 </div>
 {% endfor %}

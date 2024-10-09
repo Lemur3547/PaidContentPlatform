@@ -1,4 +1,5 @@
 {% load static %}
+{% load my_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,8 +25,19 @@
         </ul>
 
         {% if user.is_authenticated %}
-        <div class="col-md-3 text-end">
-            {{ user }}
+        <div class="col-md-3 justify-content-end d-flex">
+            <div class="dropdown">
+                <a class="text-decoration-none text-reset d-flex" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    <p class="m-0 me-3 align-items-center" style="line-height: 40px;">{{ user }}</p>
+                    <img src="{{ user.avatar|media_filter }}" class="rounded-circle" style="height: 40px; width: 40px; object-fit: cover">
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'users:user_page' user.username %}">Профиль</a></li>
+                    <li><a class="dropdown-item" href="{% url 'main:index' %}">Настройки</a></li>
+                    <li><a class="dropdown-item text-danger" href="{% url 'users:logout' %}">Выйти</a></li>
+                </ul>
+            </div>
             <a href="{% url 'users:logout' %}" type="button" class="btn btn-outline-primary ms-3">Выйти</a>
         </div>
         {% else %}

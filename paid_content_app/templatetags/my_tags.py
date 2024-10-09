@@ -22,3 +22,16 @@ def is_purchased(post, user):
         if response.status == 'complete':
             return True
     return False
+
+
+@register.filter
+def posts_count(count):
+    sklon = count % 10
+    if 10 < count % 100 < 15:
+        return 'публикаций'
+    elif sklon == 1:
+        return 'публикация'
+    elif 1 < sklon < 5:
+        return 'публикации'
+    else:
+        return 'публикаций'

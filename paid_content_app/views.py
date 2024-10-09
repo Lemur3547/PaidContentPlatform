@@ -31,10 +31,14 @@ class PostCreateView(CreateView):
     success_url = reverse_lazy('main:posts')
 
     def form_valid(self, form):
-        """Привязка текущего пользователя к создаваемой записи"""
+        """Привязка текущего пользователя к создаваемой записи
+        Увеличение количества постов у пользователя"""
         post = form.save()
-        post.user = self.request.user
+        user = self.request.user
+        post.user = user
+        user.posts += 1
         post.save()
+        user.save()
         return super().form_valid(form)
 
 
@@ -128,3 +132,11 @@ class PostDeleteView(DeleteView):
         if user == post.user:
             return post
         raise PermissionDenied
+
+    def form_valid(self, form):
+        """Уменьшение количества постов у пользователя при удалении"""
+        user = self.request.user
+        user.posts -= 1
+        user.save()
+        return super().form_valid(form)
+
