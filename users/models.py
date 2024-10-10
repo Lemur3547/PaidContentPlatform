@@ -19,6 +19,7 @@ class User(AbstractUser):
     description = models.TextField(verbose_name='О себе', **NULLABLE)
     avatar = models.ImageField(upload_to='users/', default='users/no_profile.png')
     posts = models.IntegerField(verbose_name='Количество публикаций', default=0)
+    verification_code = models.IntegerField(unique=True, verbose_name='Код подтверждения', **NULLABLE)
 
     first_name = None
     last_name = None

@@ -133,3 +133,6 @@ LOGIN_URL = 'login/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+SMSAERO_EMAIL = os.getenv('SMSAERO_EMAIL')
+SMSAERO_API_KEY = os.getenv('SMSAERO_API_KEY')
