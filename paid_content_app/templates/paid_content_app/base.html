@@ -18,10 +18,7 @@
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             <li><a href="{% url 'main:posts' %}" class="nav-link px-2">Посты</a></li>
-            <li><a href="#" class="nav-link px-2">Features</a></li>
-            <li><a href="#" class="nav-link px-2">Pricing</a></li>
-            <li><a href="#" class="nav-link px-2">FAQs</a></li>
-            <li><a href="#" class="nav-link px-2">About</a></li>
+            <li><a href="{% url 'users:authors' %}" class="nav-link px-2">Авторы</a></li>
         </ul>
 
         {% if user.is_authenticated %}
@@ -34,7 +31,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="{% url 'users:user_page' user.username %}">Профиль</a></li>
-                    <li><a class="dropdown-item" href="{% url 'main:index' %}">Настройки</a></li>
+                    <li><a class="dropdown-item" href="{% url 'users:profile' %}">Настройки</a></li>
                     <li><a class="dropdown-item text-danger" href="{% url 'users:logout' %}">Выйти</a></li>
                 </ul>
             </div>

@@ -5,11 +5,11 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse
-from django.views.generic import CreateView, DetailView, TemplateView
+from django.views.generic import CreateView, DetailView, TemplateView, ListView, UpdateView
 
 from paid_content_app.models import Post
 from paid_content_app.services import send_sms
-from users.forms import UserRegisterForm
+from users.forms import UserRegisterForm, UserProfileForm
 from users.models import User
 
 
@@ -78,3 +78,18 @@ class UserPage(DetailView):
         context_data['view_user'] = view_user
         context_data['user_posts'] = Post.objects.filter(user=view_user).order_by('-created_at')
         return context_data
+
+
+class UserList(ListView):
+    model = User
+
+
+class ProfileView(UpdateView):
+    model = User
+    form_class = UserProfileForm
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_success_url(self):
+        return reverse('users:user_page', args=[self.request.user.username])
