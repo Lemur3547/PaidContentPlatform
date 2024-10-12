@@ -1,9 +1,9 @@
 {% extends 'paid_content_app/base.html' %}
 {% block content %}
 {% load my_tags %}
+<p class="text-center m-0 p-0 mb-3 fs-1">Авторы</p>
 <div class="row justify-content-center">
     {% for author in object_list %}
-
     <div class="card col-2 mx-2 mb-3 p-0">
         <a href="{% url 'users:user_page' author.username %}" class="text-decoration-none text-reset m-0 p-0">
             <div class="card-body">

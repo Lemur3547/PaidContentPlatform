@@ -84,18 +84,31 @@
         </div>
         {% if post.price == 0 or post.user == user or post|is_purchased:user %}
         <a href="{% url 'main:detail_post' post.pk %}" class="text-decoration-none text-reset m-0 p-0">
-            {% else %}
-            <a href="{% url 'main:pay_post' post.pk %}" class="text-decoration-none text-reset m-0 p-0">
-                {% endif %}
-                {% if post.image %}
+            {% if post.image %}
+            <div style="overflow: hidden">
                 <img src="{{ post.image|media_filter }}" class="w-100">
-                {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title">{{ post.name }}</h5>
-                    <p>Открыть за {{ post.price }}{{ post.get_currency_display }}</p>
-                    <p class="card-text">{{ post.text }}</p>
-                </div>
-            </a>
+            </div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ post.name }}</h5>
+                <p class="card-text">{{ post.text }}</p>
+            </div>
+        </a>
+        {% else %}
+        <a href="{% url 'main:pay_post' post.pk %}" class="text-decoration-none text-reset m-0 p-0">
+            {% if post.image %}
+            <div style="overflow: hidden">
+                <img src="{{ post.image|media_filter }}"
+                     style="filter: blur(10px); width: 103%; margin: -10px">
+            </div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ post.name }}</h5>
+                <p>Открыть за {{ post.price }}{{ post.get_currency_display }}</p>
+                <p class="card-text">{{ post.text }}</p>
+            </div>
+        </a>
+        {% endif %}
     </div>
     {% endfor %}
 </div>

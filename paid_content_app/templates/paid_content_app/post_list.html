@@ -1,18 +1,16 @@
 {% extends 'paid_content_app/base.html' %}
 {% block content %}
 {% load my_tags %}
-<div class="row justify-content-center mb-3">
-    <a href="{% url 'main:create_post' %}" class="btn btn-primary col-3">Добавить запись</a>
-</div>
+<p class="text-center m-0 p-0 mb-3 fs-1">Публикации</p>
 {% for post in object_list %}
 <div class="row justify-content-center mb-3 p-0 m-0">
     <div class="card col-6 p-0">
         <div class="card-img-top d-flex">
-            <p class="me-auto">{{ post.created_at|date:'d M Y в H:i' }}</p>
-            <div class="dropdown">
+            <p class="me-auto my-1 ms-2 text-secondary">{{ post.created_at|date:'d M Y в H:i' }}</p>
+            <div class="dropdown me-2">
                 <a class="text-decoration-none text-reset" href="#" role="button" data-bs-toggle="dropdown"
                    aria-expanded="false">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="32" fill="currentColor"
                          class="bi bi-three-dots" viewBox="0 0 16 16">
                         <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
                     </svg>
@@ -29,22 +27,45 @@
         </div>
         {% if post.price == 0 or post.user == user or post|is_purchased:user %}
         <a href="{% url 'main:detail_post' post.pk %}" class="text-decoration-none text-reset m-0 p-0">
-            {% else %}
-            <a href="{% url 'main:pay_post' post.pk %}" class="text-decoration-none text-reset m-0 p-0">
-                {% endif %}
             {% if post.image %}
-            <img src="{{ post.image|media_filter }}" class="w-100">
+            <div style="overflow: hidden">
+                <img src="{{ post.image|media_filter }}" class="w-100">
+            </div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ post.name }}</h5>
+                <p class="card-text">{{ post.text|truncatechars:200 }}</p>
+            </div>
+        </a>
+        {% else %}
+        <a href="{% url 'main:pay_post' post.pk %}" class="text-decoration-none text-reset m-0 p-0">
+            {% if post.image %}
+            <div style="overflow: hidden">
+                <img src="{{ post.image|media_filter }}"
+                     style="filter: blur(10px); width: 103%; margin: -10px">
+            </div>
             {% endif %}
             <div class="card-body">
                 <h5 class="card-title">{{ post.name }}</h5>
                 <p>Открыть за {{ post.price }}{{ post.get_currency_display }}</p>
-                <p class="card-text">{{ post.text }}</p>
+                <p class="card-text">{{ post.text|truncatechars:200 }}</p>
             </div>
-            </a>
-            <a href="{% url 'users:user_page' post.user.username %}" class="text-decoration-none text-reset m-0 p-0">
-                <p class="card-text">{{ post.user }}</p>
-            </a>
+        </a>
+        {% endif %}
 
+        <div class="card-body pt-0 me-auto">
+            <a href="{% url 'users:user_page' post.user.username %}" class="text-decoration-none text-reset p-0 d-flex">
+                <img src="{{ post.user.avatar|media_filter }}" class="rounded-circle me-2"
+                     style="height: 35px; width: 35px; object-fit: cover">
+                <p class="card-text" style="line-height: 34px;">
+                    {% if post.user.nickname %}
+                    {{ post.user.nickname }}
+                    {% else %}
+                    {{ post.user.username }}
+                    {% endif %}
+                </p>
+            </a>
+        </div>
 
     </div>
 </div>
