@@ -13,11 +13,11 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         load_dotenv(BASE_DIR / '.env', override=True)
         user = User.objects.create(
-            username='Emik',
-            email='Emik',
+            username=os.getenv('username'),
+            email=os.getenv('email'),
             is_staff=True,
             is_superuser=True,
         )
 
-        user.set_password('Emik')
+        user.set_password(os.getenv('password'))
         user.save()
