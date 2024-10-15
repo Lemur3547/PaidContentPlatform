@@ -35,3 +35,15 @@ def posts_count(count):
         return 'публикации'
     else:
         return 'публикаций'
+
+@register.filter
+def authors_count(count):
+    sklon = count % 10
+    if 10 < count % 100 < 15:
+        return 'авторов'
+    elif sklon == 1:
+        return 'автор'
+    elif 1 < sklon < 5:
+        return 'автора'
+    else:
+        return 'авторов'

@@ -8,6 +8,7 @@ from django.views.generic import ListView, TemplateView, CreateView, DetailView,
 from paid_content_app.forms import PostForm
 from paid_content_app.models import Post, PurchasedPost
 from paid_content_app.services import create_product, create_price, create_session
+from users.models import User
 
 
 # Create your views here.
@@ -15,7 +16,11 @@ class MainPage(TemplateView):
     """Контроллер для главной страницы"""
 
     def get(self, request, *args, **kwargs):
-        return render(request, 'paid_content_app/index.html')
+        context = {
+            'authors_count': User.objects.filter(posts__gt=0).count(),
+            'posts_count': Post.objects.all().count()
+        }
+        return render(request, 'paid_content_app/index.html', context)
 
 
 class PostListView(ListView):
