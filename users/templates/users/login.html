@@ -1,0 +1,46 @@
+{% extends 'paid_content_app/base.html' %}
+{% block content %}
+<h1 class="mt-3 mb-4 text-center">
+    Войти
+</h1>
+<div class="row justify-content-center">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+<!--                    {% if form.non_field_errors %}-->
+<!--                    <div class="alert alert-danger" role="alert">-->
+<!--                        {% for error in form.non_field_errors %}-->
+<!--                        {{ error }}-->
+<!--                        {% endfor %}-->
+<!--                    </div>-->
+<!--                    {% endif %}-->
+<!--                    <p>-->
+<!--                        <label>Email:</label>-->
+<!--                        <input type="text" name="email" class="form-control">-->
+<!--                    </p>-->
+<!--                    <p>-->
+<!--                        <label>Пароль:</label>-->
+<!--                        <input type="password" name="password" class="form-control">-->
+<!--                    </p>-->
+<!--                    <a href="#">-->
+<!--                        Забыли пароль?-->
+<!--                    </a>-->
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary col-4">
+                            Войти
+                        </button>
+                    </div>
+                </form>
+                <div class="text-center mt-4">
+                    <a href="{% url 'users:register' %}">
+                        Нет аккаунта? Зарегистрироваться
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

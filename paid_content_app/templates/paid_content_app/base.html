@@ -1,0 +1,52 @@
+{% load static %}
+{% load my_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <title>Title</title>
+</head>
+<body style="padding: 0 calc(20px - (100vw - 100%)) 0 0;">
+<div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
+        <div class="col-md-3 mb-2 mb-md-0">
+            <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+                <img src="https://cdn-icons-png.flaticon.com/512/5339/5339181.png" height="40px">
+            </a>
+        </div>
+
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="{% url 'main:posts' %}" class="nav-link px-2">Посты</a></li>
+            <li><a href="{% url 'users:authors' %}" class="nav-link px-2">Авторы</a></li>
+        </ul>
+
+        {% if user.is_authenticated %}
+        <div class="col-md-3 justify-content-end d-flex">
+            <div class="dropdown">
+                <a class="text-decoration-none text-reset d-flex" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    <p class="m-0 me-3 align-items-center" style="line-height: 40px;">{{ user }}</p>
+                    <img src="{{ user.avatar|media_filter }}" class="rounded-circle" style="height: 40px; width: 40px; object-fit: cover">
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'users:user_page' user.username %}">Профиль</a></li>
+                    <li><a class="dropdown-item" href="{% url 'users:profile' %}">Настройки</a></li>
+                    <li><a class="dropdown-item text-danger" href="{% url 'users:logout' %}">Выйти</a></li>
+                </ul>
+            </div>
+            <a href="{% url 'users:logout' %}" type="button" class="btn btn-outline-primary ms-3">Выйти</a>
+        </div>
+        {% else %}
+        <div class="col-md-3 text-end">
+            <a href="{% url 'users:login' %}" type="button" class="btn btn-outline-primary me-2">Войти</a>
+            <a href="{% url 'users:register' %}" type="button" class="btn btn-primary">Зарегистрироваться</a>
+        </div>
+        {% endif %}
+    </header>
+    {% block content %}
+    {% endblock %}
+</div>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

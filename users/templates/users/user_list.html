@@ -1,0 +1,39 @@
+{% extends 'paid_content_app/base.html' %}
+{% block content %}
+{% load my_tags %}
+<p class="text-center m-0 p-0 mb-3 fs-1">Авторы</p>
+<div class="row justify-content-center">
+    {% for author in object_list %}
+    <div class="card col-2 mx-2 mb-3 p-0">
+        <a href="{% url 'users:user_page' author.username %}" class="text-decoration-none text-reset m-0 p-0">
+            <div class="card-body">
+                <img src="{{ author.avatar|media_filter }}" class="d-block mx-auto p-0 mb-2"
+                     style="height: 120px; width: 120px; border-radius: 20px; object-fit: cover">
+                <div class="text-center mx-auto">
+                    <p class="fw-bold fs-4 m-0">
+                        {% if author.nickname %}
+                        {{ author.nickname }}
+                        {% else %}
+                        {{ author.username }}
+                        {% endif %}
+                    </p>
+                    {% if author.title %}
+                    <p>
+                        {{ author.title }}
+                    </p>
+                    {% endif %}
+                    <p>
+                        {% if author.posts %}
+                        {{ author.posts }} {{ author.posts|posts_count }}
+                        {% else %}
+                        Нет публикаций
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'paid_content_app/base.html' %}
+{% block content %}
+{% load my_tags %}
+<div class="row justify-content-center fs-1">
+    Добро пожаловать
+</div>
+<div class="fs-3 text-center mb-4">
+    На сайт для публикации платного контента
+</div>
+<div class="card col-6 mx-auto mb-4 py-4">
+    <div class="card-body">
+        <div class="fs-2 text-center">
+            С помощью нашего сайта {{ authors_count }} {{ authors_count|authors_count }} создали уже {{ posts_count }}
+            {{ posts_count|posts_count }}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3 ms-auto">
+        <div class="d-grid">
+            <a href="{% url 'main:posts' %}" class="btn btn-outline-primary" type="button">Смотреть посты</a>
+        </div>
+    </div>
+    {% if user.is_authenticated %}
+    <div class="col-3 me-auto">
+        <div class="d-grid">
+            <a href="{% url 'users:user_page' user.username %}" class="btn btn-primary" type="button">Добавить публикацию</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-3 me-auto">
+        <div class="d-grid">
+            <a href="{% url 'users:register' %}" class="btn btn-primary" type="button">Стать автором</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+
+{% endblock %}

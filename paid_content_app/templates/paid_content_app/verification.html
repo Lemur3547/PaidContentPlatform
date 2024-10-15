@@ -1,0 +1,21 @@
+{% extends 'paid_content_app/base.html' %}
+{% block content %}
+<div class="row align-items-center" style="height: 60vh">
+    <div class="col-4 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <p class="fs-2 text-center">Подтверждение телефона</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-4 mx-auto col-8">
+                        <input name="code" type="text" class="form-control" placeholder="Код" maxlength="4" minlength="4"/>
+                    </div>
+                    <div class="d-grid gap-2 col-6 mx-auto mb-2">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
